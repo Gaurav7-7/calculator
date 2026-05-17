@@ -79,10 +79,9 @@ http://127.0.0.1:5000
 
 This project is deployed on Render.
 
-Render Dashboard:
+## Live Demo
 
-[https://dashboard.render.com/project/prj-d84ocr19rddc739p2k6g]([https://dashboard.render.com/project/prj-d84ocr19rddc739p2k6g](https://calculator-bxh9.onrender.com))
-
+https://calculator-bxh9.onrender.com
 ---
 
 # Requirements
