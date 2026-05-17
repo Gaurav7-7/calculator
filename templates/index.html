@@ -1,0 +1,148 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask Calculator</title>
+
+    <style>
+
+        body{
+            margin:0;
+            padding:0;
+            background:#1e1e2f;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            font-family:Arial, sans-serif;
+        }
+
+        .calculator{
+            background:#2c2c3e;
+            padding:20px;
+            border-radius:15px;
+            box-shadow:0 0 20px rgba(0,0,0,0.5);
+        }
+
+        #display{
+            width:100%;
+            height:60px;
+            margin-bottom:15px;
+            font-size:28px;
+            text-align:right;
+            padding-right:10px;
+            border:none;
+            border-radius:10px;
+            outline:none;
+            background:#f4f4f4;
+        }
+
+        .buttons{
+            display:grid;
+            grid-template-columns:repeat(4,80px);
+            gap:10px;
+        }
+
+        button{
+            height:70px;
+            font-size:24px;
+            border:none;
+            border-radius:10px;
+            cursor:pointer;
+            background:#4e4e70;
+            color:white;
+            transition:0.2s;
+        }
+
+        button:hover{
+            background:#6c6ca5;
+        }
+
+        .equal{
+            background:#00b894;
+        }
+
+        .equal:hover{
+            background:#00d1a0;
+        }
+
+        .clear{
+            background:#d63031;
+        }
+
+        .clear:hover{
+            background:#ff4d4d;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+
+        <input type="text" id="display" readonly>
+
+        <div class="buttons">
+
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="appendValue('/')">/</button>
+
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('*')">*</button>
+
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('-')">-</button>
+
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="appendValue('.')">.</button>
+            <button class="equal" onclick="calculate()">=</button>
+            <button onclick="appendValue('+')">+</button>
+
+            <button class="clear" style="grid-column: span 4;" onclick="clearDisplay()">C</button>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        const display = document.getElementById("display");
+
+        function appendValue(value){
+            display.value += value;
+        }
+
+        function clearDisplay(){
+            display.value = "";
+        }
+
+        async function calculate(){
+
+            const response = await fetch("/calculate",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    expression:display.value
+                })
+            });
+
+            const data = await response.json();
+
+            display.value = data.result;
+        }
+
+    </script>
+
+</body>
+</html>
