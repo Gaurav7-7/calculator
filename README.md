@@ -20,8 +20,6 @@ A simple and modern calculator web application built using **Python Flask**, **H
 * Python
 * Flask
 * HTML5
-* CSS3
-* JavaScript
 
 ---
 
